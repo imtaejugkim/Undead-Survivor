@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Reposition : MonoBehaviour
 {
+    Collider2D coll;
+
+    void Awake()
+    {
+        coll = GetComponent<Collider2D>();
+
+    }
     void OnTriggerExit2D(Collider2D collision)
     {
+
         if (!collision.CompareTag("Area"))
             return;
 
@@ -20,6 +28,7 @@ public class Reposition : MonoBehaviour
 
         switch (transform.tag)
         {
+            // 맵 확장
             case "Ground":
                 if(diffX > diffY)
                 {
@@ -30,9 +39,13 @@ public class Reposition : MonoBehaviour
                     transform.Translate(Vector3.up * dirY * 40);
                 }
                 break;
-
+                // enemy 멀어질 경우
             case "Enemy":
-
+                if(coll.enabled)
+                {
+                    // 플레이어의 이동방향에 따라 맞은편에서 등장하도록 이동
+                    transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f,3f), Random.Range(-3f, 3f), 0f));
+                }
                 break;
         }
 
