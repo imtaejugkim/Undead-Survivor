@@ -45,4 +45,9 @@ public class Enemy : MonoBehaviour
         // sprite renderer에서 플레이어가 왼쪽, 오른쪽 있는 경우 x 축비교 
         spriter.flipX = target.position.x < rigid.position.x;
     }
+
+    void OnEnable()
+    {
+        target = GameManager.Instance.player.GetComponent<Rigidbody2D>();
+    }
 }
