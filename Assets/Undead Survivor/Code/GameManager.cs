@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     //GameManager에는 Player 정보를 저장하기 위함
-    public static GameManager Instance;
+    public static GameManager instance;
+
+    public float gameTime;
+    public float maxGameTime = 2 * 10f;
+
     public PoolManager pool;
     public Player player;
 
     void Awake()
     {
-        Instance = this;
+        instance = this;
+    }
+
+    void Update()
+    {
+        gameTime += Time.deltaTime;
+
+        if (gameTime > maxGameTime)
+        {
+            gameTime = maxGameTime;
+        }
     }
 }
